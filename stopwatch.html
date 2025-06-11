@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Секундомер</title>
+</head>
+<body>
+  <h1 id="display">00:00:00</h1>
+  <button onclick="start()">Старт</button>
+  <button onclick="stop()">Стоп</button>
+  <button onclick="reset()">Сброс</button>
+  <script>
+    let time = 0;
+    let interval;
+    function update() {
+      const h = String(Math.floor(time / 3600)).padStart(2, '0');
+      const m = String(Math.floor((time % 3600) / 60)).padStart(2, '0');
+      const s = String(time % 60).padStart(2, '0');
+      document.getElementById('display').textContent = `${h}:${m}:${s}`;
+      time++;
+    }
+    function start() {
+      clearInterval(interval);
+      interval = setInterval(update, 1000);
+    }
+    function stop() {
+      clearInterval(interval);
+    }
+    function reset() {
+      stop();
+      time = 0;
+      document.getElementById('display').textContent = '00:00:00';
+    }
+  </script>
+</body>
+</html>
